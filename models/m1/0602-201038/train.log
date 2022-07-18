@@ -1,0 +1,19 @@
+06-02 20:10:38 data_dir: E:\Crowd-counting\UCF-Train-Val-Test.zip
+06-02 20:10:38 save_dir: E:\Crowd-counting\Bayesian-Crowd-Counting\models\m1
+06-02 20:10:38 lr: 1e-05
+06-02 20:10:38 weight_decay: 0.0001
+06-02 20:10:38 resume: 
+06-02 20:10:38 max_model_num: 1
+06-02 20:10:38 max_epoch: 1000
+06-02 20:10:38 val_epoch: 5
+06-02 20:10:38 val_start: 600
+06-02 20:10:38 batch_size: 1
+06-02 20:10:38 device: 0
+06-02 20:10:38 num_workers: 8
+06-02 20:10:38 is_gray: False
+06-02 20:10:38 crop_size: 512
+06-02 20:10:38 downsample_ratio: 8
+06-02 20:10:38 use_background: True
+06-02 20:10:38 sigma: 8.0
+06-02 20:10:38 background_ratio: 1.0
+06-02 20:10:38 using 1 gpus

@@ -1,0 +1,19 @@
+06-02 20:08:54 data_dir: .\UCF-Train-Val-Test\train
+06-02 20:08:54 save_dir: .\models\m1
+06-02 20:08:54 lr: 1e-05
+06-02 20:08:54 weight_decay: 0.0001
+06-02 20:08:54 resume: 
+06-02 20:08:54 max_model_num: 1
+06-02 20:08:54 max_epoch: 1000
+06-02 20:08:54 val_epoch: 5
+06-02 20:08:54 val_start: 600
+06-02 20:08:54 batch_size: 1
+06-02 20:08:54 device: 0
+06-02 20:08:54 num_workers: 8
+06-02 20:08:54 is_gray: False
+06-02 20:08:54 crop_size: 512
+06-02 20:08:54 downsample_ratio: 8
+06-02 20:08:54 use_background: True
+06-02 20:08:54 sigma: 8.0
+06-02 20:08:54 background_ratio: 1.0
+06-02 20:08:54 using 1 gpus
