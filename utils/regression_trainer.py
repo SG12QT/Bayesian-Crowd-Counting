@@ -21,6 +21,7 @@ def train_collate(batch):
     images = torch.stack(transposed_batch[0], 0)
     points = transposed_batch[1]  # the number of points is not fixed, keep it as a list of tensor
     targets = transposed_batch[2]
+    #st_sizes是原图像小边长度
     st_sizes = torch.FloatTensor(transposed_batch[3])
     return images, points, targets, st_sizes
 
@@ -39,10 +40,13 @@ class RegTrainer(Trainer):
             raise Exception("gpu is not available")
 
         self.downsample_ratio = args.downsample_ratio
+        #此处Crowd是重点，自定义数据集的加载方式
+        #返回 图 点坐标 (概率密度)??
         self.datasets = {x: Crowd(os.path.join(args.data_dir, x),
                                   args.crop_size,
                                   args.downsample_ratio,
                                   args.is_gray, x) for x in ['train', 'val']}
+        #collate_fn 对datasets数据解包
         self.dataloaders = {x: DataLoader(self.datasets[x],
                                           collate_fn=(train_collate
                                                       if x == 'train' else default_collate),
@@ -52,6 +56,7 @@ class RegTrainer(Trainer):
                                           num_workers=args.num_workers*self.device_count,
                                           pin_memory=(True if x == 'train' else False))
                             for x in ['train', 'val']}
+        #vgg19模型用于提取图像特征
         self.model =vgg19()
         self.model.to(self.device)
         self.optimizer = optim.Adam(self.model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
@@ -67,6 +72,7 @@ class RegTrainer(Trainer):
             elif suf == 'pth':
                 self.model.load_state_dict(torch.load(args.resume, self.device))
 
+        #实现文章后验概率逻辑的部分
         self.post_prob = Post_Prob(args.sigma,
                                    args.crop_size,
                                    args.downsample_ratio,

@@ -6,16 +6,21 @@ class Post_Prob(Module):
         super(Post_Prob, self).__init__()
         assert c_size % stride == 0
 
+        #传进来的参数均为自己设置的
         self.sigma = sigma
         self.bg_ratio = background_ratio
         self.device = device
         # coordinate is same to image space, set to constant since crop size is same
         self.cood = torch.arange(0, c_size, step=stride,
                                  dtype=torch.float32, device=device) + stride / 2
+        #维度扩张
         self.cood.unsqueeze_(0)
         self.softmax = torch.nn.Softmax(dim=0)
         self.use_bg = use_background
 
+    #调用就执行这个函数
+    #points 点坐标
+    #st_sizes 小边长度
     def forward(self, points, st_sizes):
         num_points_per_image = [len(points_per_image) for points_per_image in points]
         all_points = torch.cat(points, dim=0)
